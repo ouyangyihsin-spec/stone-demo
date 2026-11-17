@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>礦語 · 屬於你的飾品</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#faf7f2;--card:#fff;--ink:#2a2622;--mute:#7a7268;--line:#e8e1d6;--acc:#7a5c8e;--acc2:#efe7f5;--skin:#f1cfb4}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#1b1917;--card:#262321;--ink:#f1ece4;--mute:#a79f94;--line:#3a3530;--acc:#c4a3dc;--acc2:#332b3a;--skin:#c99f82}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+.bar{max-width:980px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.logo{font-weight:700;font-size:18px;letter-spacing:2px;cursor:pointer}
+nav{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+nav button{border:0;background:none;color:var(--mute);padding:6px 12px;border-radius:99px;font:inherit;white-space:nowrap;cursor:pointer}
+nav button.on{background:var(--acc2);color:var(--acc);font-weight:600}
+.cartbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 14px;font:inherit;cursor:pointer;white-space:nowrap}
+main{max-width:980px;margin:auto;padding:20px 16px 80px}
+h1{font-size:26px;margin:0 0 6px}h2{font-size:20px;margin:0 0 10px}
+.sub{color:var(--mute);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.prod{cursor:pointer;padding:12px;transition:transform .15s}.prod:hover{transform:translateY(-2px)}
+.prod svg{width:100%;height:auto;background:var(--acc2);border-radius:12px}
+.prod b{display:block;margin-top:8px}.prod small{color:var(--mute)}
+.price{color:var(--acc);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:5px 14px;font:inherit;font-size:14px;cursor:pointer}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.tag{display:inline-block;background:var(--acc2);color:var(--acc);border-radius:6px;padding:1px 8px;font-size:12px;margin:2px 4px 2px 0}
+input,select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.btn{border:0;background:var(--acc);color:#fff;border-radius:12px;padding:11px 20px;font:inherit;font-weight:600;cursor:pointer}
+.btn.ghost{background:var(--acc2);color:var(--acc)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hero{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:10px}
+.hero .card{cursor:pointer}.hero .card:hover{border-color:var(--acc)}
+.big{font-size:56px;font-weight:700;color:var(--acc);line-height:1}
+details{border-bottom:1px solid var(--line);padding:10px 0}summary{cursor:pointer;font-weight:600}details p{color:var(--mute);margin:8px 0 0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.pal{display:flex;flex-wrap:wrap;gap:8px}
+.pal button{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}
+.dot{width:18px;height:18px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+@media(min-width:700px){.modal{align-items:center}.sheet{border-radius:20px}}
+.x{float:right;border:0;background:none;color:var(--mute);font-size:24px;cursor:pointer}
+.line{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;z-index:30}
+.steps{display:flex;gap:6px;margin-bottom:14px;font-size:13px;color:var(--mute)}.steps span.on{color:var(--acc);font-weight:700}
+.note{font-size:12px;color:var(--mute)}
+.biglogo{font-size:44px;font-weight:700;letter-spacing:10px;color:var(--acc);padding-left:10px}
+.season{background:linear-gradient(135deg,var(--acc2),var(--card));border:1px solid var(--line);border-radius:20px;padding:18px}
+.srow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.sitem{cursor:pointer;text-align:center}.sitem svg{width:100%;height:auto;background:var(--card);border-radius:14px}.sitem small{display:block;color:var(--mute)}
+.icons{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin:14px 0}
+.ico{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px 6px;font:inherit;cursor:pointer}
+.ico span{display:block;font-size:30px}.ico.on{border-color:var(--acc);background:var(--acc2);color:var(--acc);font-weight:600}
+:root{--bg:#fbf1ea;--card:#fffaf6;--ink:#2a3350;--mute:#7b7f93;--line:#ecdccd;--acc:#3f5f94;--acc2:#e9eefa;--gold:#b98a4e;--org:#e98a4b;--pink:#f6cdc8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10182c;--card:#1a2540;--ink:#f3ead9;--mute:#a4abc2;--line:#2c3a5c;--acc:#9bb7ee;--acc2:#24335a;--gold:#d8b078;--org:#f0a068;--pink:#4a3446}}
+body{background:radial-gradient(900px 400px at 85% -50px,var(--pink),transparent 70%),radial-gradient(700px 420px at 0 0,var(--acc2),transparent 70%),var(--bg);background-attachment:fixed}
+h1,h2,.logo,.biglogo,.tt{font-family:"Noto Serif TC","Songti TC",serif;letter-spacing:1px}
+header{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(10px)}
+.logo{color:var(--gold)}
+nav button{transition:.2s}nav button:hover{color:var(--acc);background:var(--acc2)}
+nav button.on{background:linear-gradient(135deg,var(--gold),var(--org));color:#fff}
+.card{box-shadow:0 6px 22px rgba(80,60,40,.08);border-radius:20px;transition:.25s}
+.prod:hover{box-shadow:0 12px 30px rgba(80,60,40,.16)}
+.btn{background:linear-gradient(135deg,var(--gold),var(--org));box-shadow:0 4px 14px rgba(233,138,75,.35);transition:.2s}.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn.ghost{background:var(--acc2);color:var(--acc);box-shadow:none}
+.chip{transition:.2s}.chip:hover{border-color:var(--gold)}.chip.on{background:linear-gradient(135deg,var(--acc),#6b86b8);border-color:transparent}
+.chip.sm{padding:3px 11px;font-size:13px}.price{color:var(--org)}
+.cartbtn{transition:.2s}.cartbtn:hover{border-color:var(--gold)}
+.hero2{text-align:center;padding:38px 16px 30px;margin-bottom:22px;border-radius:26px;background:linear-gradient(160deg,rgba(63,95,148,.95),rgba(112,86,138,.9) 60%,rgba(233,138,75,.88));color:#fff;position:relative;overflow:hidden}
+.hero2:before{content:"✦ · ✧ · ✦ · ✧ · ✦";position:absolute;top:10px;left:0;right:0;opacity:.45;letter-spacing:10px}
+.hero2 .biglogo{color:#fff}.hero2 p{opacity:.92;margin:6px 0 18px}.hero2 .btn.ghost{background:rgba(255,255,255,.22);color:#fff}
+.diy{display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:16px;align-items:start}@media(max-width:820px){.diy{grid-template-columns:1fr}}
+.cvwrap{position:relative}#cv{width:100%;max-width:340px;display:block;margin:auto;touch-action:none}.bd{cursor:grab;touch-action:none}
+#trash{position:absolute;right:4px;bottom:4px;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--acc2);font-size:22px;transition:.2s}#trash.hot{background:#e57373;transform:scale(1.2)}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.tools .chip.on{background:var(--gold);border-color:var(--gold)}
+.meta{display:flex;justify-content:space-between;gap:8px;font-size:14px;align-items:center;flex-wrap:wrap}.warn{color:#d9534f}
+.libbody{display:flex;gap:10px}.subs{display:flex;flex-direction:column;gap:4px;min-width:76px}
+.subs .sub{border:0;background:none;color:var(--mute);text-align:left;padding:6px 10px;border-radius:10px;font:inherit;cursor:pointer;transition:.2s}.subs .sub.on{background:var(--acc2);color:var(--acc);font-weight:600}
+.items{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px;max-height:330px;overflow:auto;align-content:start}
+.it{border:1px solid var(--line);border-radius:14px;padding:8px;text-align:center;cursor:pointer;transition:.2s;position:relative;background:var(--card)}.it:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.it b{display:block;font-size:13px}.it small{color:var(--mute);font-size:11px}.it em{position:absolute;top:4px;right:6px;font-size:10px;color:var(--org);font-style:normal}
+.bead{display:block;width:40px;height:40px;border-radius:50%;margin:0 auto 4px;box-shadow:inset -5px -5px 9px rgba(0,0,0,.25),inset 4px 4px 8px rgba(255,255,255,.55)}.bead.sm{width:22px;height:22px;margin:0}
+.skins button{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);cursor:pointer;transition:.2s}.skins button:hover{border-color:var(--gold)}
+input[type=range]{padding:0;border:0;background:none}
+.lo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:330px;margin:auto}
+.lc{aspect-ratio:1;border-radius:16px;background:var(--acc2);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.2s}.lc:hover{transform:scale(1.04)}
+.lc b{font-size:26px;font-family:serif;color:var(--acc)}.lc.miss{background:transparent;border:1.5px dashed var(--gold)}.lc.miss b{color:var(--mute);opacity:.6}.lc i{font-style:normal;color:var(--org);font-size:15px;margin:0 1px}
+.tcard{width:176px;margin:12px auto;padding:20px 12px;text-align:center;border-radius:18px;border:2px solid var(--gold);background:linear-gradient(170deg,#25335c,#4a3a6b);color:#f5e6c4;box-shadow:0 10px 30px rgba(40,40,90,.35)}
+.tcard .tn{font-size:34px;font-family:serif;color:#e6c27a}.tcard .star{font-size:26px;margin:6px 0;color:#e98a4b}.tcard .tt{font-size:20px}.tcard i{display:block;margin-top:8px;font-size:13px;opacity:.9}
+.q{margin:12px 0}.intro p{color:var(--mute)}.cd{width:14px;height:14px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:-2px}
+.soc{text-align:center;cursor:pointer}.soc:hover{transform:translateY(-3px)}.soc span{font-size:38px;display:block}
+body{background:var(--bg)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 460px 320px at 8% 6%,rgba(143,176,224,.5),transparent 70%),radial-gradient(ellipse 400px 300px at 94% 12%,rgba(246,201,196,.6),transparent 70%),radial-gradient(ellipse 520px 340px at 82% 92%,rgba(233,190,130,.38),transparent 70%),radial-gradient(ellipse 440px 320px at 4% 86%,rgba(180,166,224,.32),transparent 70%),radial-gradient(ellipse 300px 220px at 50% 45%,rgba(246,201,196,.22),transparent 70%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.7;mix-blend-mode:multiply;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 .6 0 0 0 0 .5 0 0 0 0 .4 0 0 0 .14 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) body::before{opacity:.35}:root:not([data-theme="light"]) body::after{opacity:.25}}
+.card{background:color-mix(in srgb,var(--card) 88%,transparent)}
+.tcard{width:210px;padding:12px 12px 16px;background:#fbf3e6;color:#3a3350;border:2px solid var(--gold);border-radius:18px;box-shadow:0 12px 30px rgba(80,60,40,.22);position:relative}
+.tcard:before{content:"";position:absolute;inset:5px;border:1px solid rgba(185,138,78,.5);border-radius:13px;pointer-events:none}
+.tcard .tn{position:absolute;top:10px;left:14px;font-size:16px;color:var(--gold);font-family:serif}
+.tcard .tt{font-size:20px;color:#3a3350;margin-top:2px}.tcard i{color:#6a6580}
+.entry{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+.ecard{background:#fbf3e6;border:1.5px solid var(--gold);border-radius:20px;padding:8px 8px 12px;text-align:center;cursor:pointer;color:#3a3350;transition:.25s;box-shadow:0 6px 20px rgba(80,60,40,.12)}
+.ecard:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:0 14px 30px rgba(80,60,40,.2)}.ecard b{font-family:"Noto Serif TC","Songti TC",serif}
+.libbig .items{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));max-height:560px;gap:12px}.libbig .it{padding:14px 10px}.libbig .bead{width:60px;height:60px}.libbig .it b{font-size:15px}.libbig .it small{font-size:12px}.libbig .subs{min-width:96px}.libbig .subs .sub{font-size:15px;padding:9px 12px}.libbig .chip{font-size:15px}.libbig .chip.sm{font-size:14px}
+.billbox{max-height:190px;overflow:auto;margin-top:8px}
+.pv{display:grid;grid-template-rows:1fr 1fr;gap:12px;height:calc(100vh - 150px);min-height:640px}.pvt{display:grid;place-items:center;padding:8px;min-height:0}.pvt svg{height:100%;max-height:100%;width:auto;max-width:100%}.pvb{overflow:auto;min-height:0}.pvb #tr svg{width:auto!important;max-height:210px;display:block;margin:auto}
+</style>
+</head>
+<body>
+<header><div class="bar"><div class="logo" onclick="go('home')">礦語</div><nav id="nav"></nav><button class="cartbtn" onclick="openCart()">購物車 <b id="cc">0</b></button></div></header>
+<main id="app"></main>
+<div id="layer"></div>
+<script>
+const S={
+amethyst:{n:'紫水晶',c:'#9b7fd1',e:'火',k:'智慧・直覺',p:80},
+rose:{n:'粉晶',c:'#f4b6c2',e:'火',k:'愛與關係',p:60},
+carnelian:{n:'紅瑪瑙',c:'#c0392b',e:'火',k:'活力・行動',p:60},
+citrine:{n:'黃水晶',c:'#f2c94c',e:'土',k:'豐盛・自信',p:90},
+tiger:{n:'虎眼石',c:'#b5792f',e:'土',k:'勇氣・守護',p:70},
+clear:{n:'白水晶',c:'#e3ebf2',e:'金',k:'淨化・放大',p:50},
+rutile:{n:'鈦晶',c:'#d4a93a',e:'金',k:'財運・決斷',p:120},
+green:{n:'綠幽靈',c:'#5fae7e',e:'木',k:'事業・成長',p:100},
+aventurine:{n:'東菱石',c:'#7cc58b',e:'木',k:'機運・樂觀',p:60},
+obs:{n:'黑曜石',c:'#2b2b33',e:'水',k:'避邪・穩定',p:50},
+moon:{n:'月光石',c:'#c9d3e6',e:'水',k:'情緒・安定',p:90},
+lapis:{n:'青金石',c:'#2f4fa0',e:'水',k:'溝通・智慧',p:110}};
+const P=[
+{id:1,n:'晨霧',cat:'素串',st:['moon','clear'],d:'月光石與白水晶的素雅單色串，日常百搭。'},
+{id:2,n:'森之呼吸',cat:'素串',st:['green','aventurine'],d:'兩款綠色礦石純粹排列，帶來沉靜成長感。'},
+{id:3,n:'焰心',cat:'能量',st:['carnelian','tiger','citrine'],d:'補火土能量，適合需要行動力與自信的時刻。'},
+{id:4,n:'深海靜心',cat:'能量',st:['lapis','obs','moon'],d:'補水能量，幫助情緒沉澱、清楚表達。'},
+{id:5,n:'紫夜詩',cat:'設計款',st:['amethyst','clear','rose','clear'],d:'設計師配色，紫與粉的柔和對話。'},
+{id:6,n:'金光',cat:'能量',st:['rutile','citrine','tiger'],d:'補金土能量，聚焦財運與決斷。'},
+{id:7,n:'櫻語',cat:'設計款',st:['rose','moon','clear'],d:'粉霧感設計款，溫柔又有層次。'},
+{id:8,n:'山林行者',cat:'設計款',st:['obs','green','tiger'],d:'深色系設計款，穩重帶自然氣息。'}];
+const N={1:['領導者','獨立、開創，適合補行動力。',['carnelian','citrine']],2:['協調者','敏感、體貼，適合穩定情緒。',['moon','rose']],3:['表達者','創意、樂觀，適合強化溝通。',['citrine','lapis']],4:['建構者','踏實、有條理，適合增添安定。',['tiger','obs']],5:['冒險者','自由、多變，適合帶來好機運。',['aventurine','carnelian']],6:['關愛者','溫暖、負責，適合滋養關係。',['rose','green']],7:['探索者','內省、求知，適合深化直覺。',['amethyst','lapis']],8:['實踐者','企圖、豐盛，適合聚焦財運。',['rutile','tiger']],9:['完成者','包容、理想，適合淨化與釋放。',['clear','amethyst']]};
+const EL={木:['green','aventurine'],火:['amethyst','rose','carnelian'],土:['citrine','tiger'],金:['clear','rutile'],水:['obs','moon','lapis']};
+const STEM='甲乙木 丙丁火 戊己土 庚辛金 壬癸水'.split(' ');
+const KNOW=[['什麼是生命靈數？','把出生年月日的每個數字相加，直到化為 1–9 的單一數字，用來描述性格傾向與課題。'],['五行與礦石的關係','木、火、土、金、水各對應不同礦石，補足較弱的元素能讓配戴更有方向。'],['水晶需要淨化嗎？','建議每月以月光或消磁石淨化一次，避免長時間曝曬與泡水。'],['左手還是右手？','一般說法：左手接收能量、右手釋放能量，也可依慣用手與舒適感選擇。'],['如何挑選適合尺寸？','量手腕圍加 1–2 公分即可，彈力線手鍊可多留 1 公分彈性。']];
+const QA=[['客製手鍊要等多久？','訂單成立後約 5–7 個工作天製作完成。'],['可以修改設計嗎？','付款前可隨時調整；製作開始後僅能協助調整尺寸。'],['礦石是天然的嗎？','每顆皆為天然礦石，顏色與紋路因此略有差異。'],['怎麼付款？','Demo 僅模擬結帳，不會產生實際扣款。']];
+let st={view:'home',q:'',cat:'全部',cart:[],orders:[],res:null,custom:[],size:'15'};
+const $=s=>document.querySelector(s);
+const price=b=>b.reduce((a,i)=>a+S[i].p,0);
+const beadsOf=p=>{const a=[];for(let i=0;i<15;i++)a.push(p.st[i%p.st.length]);return a};
+const prodPrice=p=>p.price||(p.type==='吊墜'?S[p.st[0]].p*3+80:price(beadsOf(p))+(p.type==='設計款'?150:0));
+function wrist(beads,w){const n=beads.length||1,r=Math.max(7,Math.min(15,150/n+2)),cx=170,cy=105,rx=15,ry=48;let back='',front='';
+beads.forEach((id,i)=>{const t=i/n*Math.PI*2,x=cx+Math.sin(t)*rx*1.0,y=cy-Math.cos(t)*ry,z=Math.sin(t+Math.PI/2);
+const el=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r*(.85+.15*(z>0?1:0))}" fill="${S[id].c}" stroke="rgba(0,0,0,.25)" stroke-width="1"/><circle cx="${(x-r*.3).toFixed(1)}" cy="${(y-r*.3).toFixed(1)}" r="${r*.28}" fill="#fff" opacity=".55"/>`;
+(Math.cos(t)*0+Math.sin(t)>=0?front:back)&&0;(Math.sin(t)>=0?front+=el:back+=el)});
+return `<svg viewBox="0 0 340 210" ${w?'':''}><g>${back}</g>${arm('var(--skin)',1)}<g>${front}</g></svg>`}
+function ring(beads){return wrist(beads)}
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),1600)}
+function go(v){st.view=v;render();window.scrollTo(0,0)}
+function render(){
+const tabs=[['home','首頁'],['shop','商品列表'],['profile','能量檔案'],['custom','客製手鍊'],['know','知識'],['qa','問與答'],['after','售後']];
+$('#nav').innerHTML=tabs.map(t=>`<button class="${(st.view==='preview'?'diy':st.view)===t[0]?'on':''}" onclick="go('${t[0]}')">${t[1]}</button>`).join('');
+$('#cc').textContent=st.cart.reduce((a,c)=>a+c.qty,0);
+$('#app').innerHTML=V[st.view]();if(st.view==='custom')drawCustom()}
+const card=p=>`<div class="card prod" onclick="detail(${p.id})">${img(p)}<b>${p.n}</b><small>${p.type}${p.st.length?' · '+p.st.map(i=>S[i].n).join('、'):''}</small><div class="price">NT$ ${prodPrice(p)}</div></div>`;
+const V={
+home(){return `<h1>買到屬於自己的飾品</h1><p class="sub">藉由創作，與自己深度對話。</p>
+<div class="hero"><div class="card" onclick="go('quiz')"><h2>① 測出我的能量</h2><p class="sub">輸入生日，得到生命靈數與五行，找到所需礦石。</p><span class="tag">生命靈數</span><span class="tag">五行</span></div>
+<div class="card" onclick="go('shop')"><h2>② 搜尋選購</h2><p class="sub">關鍵字搜尋，依素串／設計款／能量分類篩選。</p></div>
+<div class="card" onclick="go('custom')"><h2>③ 創造獨一無二</h2><p class="sub">自選礦石排列，即時模擬配戴效果。</p></div></div>`},
+shop(){const q=st.q.trim();const list=P.filter(p=>(st.cat==='全部'||p.cat===st.cat)&&(!q||(p.n+p.cat+p.d+p.st.map(i=>S[i].n+S[i].e+S[i].k).join('')).includes(q)));
+return `<h1>搜尋選購</h1><input placeholder="輸入關鍵字，例如：紫水晶、水、財運" value="${st.q}" oninput="st.q=this.value;list()" id="qi">
+<div class="chips">${['全部','素串','設計款','能量'].map(c=>`<button class="chip ${st.cat===c?'on':''}" onclick="st.cat='${c}';render();$('#qi').focus()">${c}</button>`).join('')}</div>
+<div class="grid" id="pl">${list.map(card).join('')||'<p class="sub">找不到符合的商品，換個關鍵字試試。</p>'}</div>`},
+quiz(){const r=st.res;return `<h1>能量測驗</h1><p class="sub">輸入出生日期，計算你的生命靈數與五行。</p>
+<div class="card" style="max-width:460px"><div class="chips"><button class="chip ${st.cal!=='農曆'?'on':''}" onclick="st.cal='國曆';render()">國曆</button><button class="chip ${st.cal==='農曆'?'on':''}" onclick="st.cal='農曆';render()">農曆</button></div>
+<input type="date" id="bd" value="${st.bd||''}"><br><br><button class="btn" onclick="calc()">點擊計算</button>
+${st.cal==='農曆'?'<p class="note">Demo：農曆直接以輸入的數字計算，未做農曆換算。</p>':''}</div>
+${r?`<div class="card" style="margin-top:16px"><div class="row" style="gap:20px"><div><div class="big">${r.num}</div><small>生命靈數</small></div><div><div class="big">${r.el}</div><small>五行（年天干）</small></div></div>
+<h2 style="margin-top:14px">${N[r.num][0]}</h2><p>${N[r.num][1]}</p><p>建議礦石：${r.rec.map(i=>`<span class="tag">${S[i].n}（${S[i].k}）</span>`).join('')}</p>
+<div class="row"><button class="btn" onclick="recShop()">看推薦商品</button><button class="btn ghost" onclick="st.custom=[...r0()];go('custom')">依結果製作手鍊</button></div></div>`:''}`},
+custom(){return `<h1>客製手鍊</h1><p class="sub">${st.res?'★ 為依你的測驗結果推薦的礦石。':'可先做能量測驗，取得推薦礦石。'}</p>
+<div class="two"><div class="card"><div id="prev"></div><div class="row" style="justify-content:space-between"><span id="cnt"></span><b class="price" id="tot"></b></div><div id="sel" class="chips"></div>
+<div class="row"><select id="sz" onchange="st.size=this.value" style="width:auto">${[14,15,16,17,18].map(s=>`<option ${st.size==s?'selected':''} value="${s}">手圍 ${s} cm</option>`).join('')}</select><button class="chip" onclick="st.custom=[];drawCustom()">清空</button></div><br><button class="btn" onclick="addCustom()">試戴完成，加入購物車</button></div>
+<div class="card"><h2>選擇礦石（最多 18 顆）</h2><div class="pal">${Object.keys(S).map(i=>`<button onclick="addBead('${i}')"><span class="dot" style="background:${S[i].c}"></span>${st.res&&st.res.rec.includes(i)?'★':''}${S[i].n} <small>${S[i].e}</small></button>`).join('')}</div></div></div>`},
+know(){return `<h1>相關知識補給</h1><p class="sub">認識礦石與生命靈數。</p><div class="card">${KNOW.map(k=>`<details><summary>${k[0]}</summary><p>${k[1]}</p></details>`).join('')}</div>`},
+qa(){return `<h1>問與答</h1><p class="sub">常見問題。</p><div class="card">${QA.map(k=>`<details><summary>${k[0]}</summary><p>${k[1]}</p></details>`).join('')}</div>`},
+after(){return `<h1>售後專區</h1><p class="sub">查詢訂單與申請服務。</p><div class="card"><h2>我的訂單</h2>${st.orders.map(o=>`<div class="line"><span>${o.no}　${o.items} 件商品</span><b>NT$ ${o.total}　<span class="tag">製作中</span></b></div>`).join('')||'<p class="sub">尚無訂單，完成結帳後會顯示在這裡。</p>'}</div><br>
+<div class="card"><h2>申請服務</h2><div class="chips">${['調整尺寸','保養諮詢','退換貨'].map(s=>`<button class="chip" onclick="toast('已送出「${s}」申請（Demo）')">${s}</button>`).join('')}</div></div>`}};
+function list(){const q=st.q.trim();const l=P.filter(p=>(st.cat==='全部'||p.cat===st.cat)&&(!q||(p.n+p.cat+p.d+p.st.map(i=>S[i].n+S[i].e+S[i].k).join('')).includes(q)));$('#pl').innerHTML=l.map(card).join('')||'<p class="sub">找不到符合的商品。</p>'}
+function calc(){const v=$('#bd').value;if(!v){toast('請先輸入生日');return}st.bd=v;const [y,m,d]=v.split('-').map(Number);let s=(y+''+m+d).split('').reduce((a,b)=>a+ +b,0);while(s>9)s=String(s).split('').reduce((a,b)=>a+ +b,0);
+const el=STEM[Math.floor(((y-4)%10+10)%10/2)].slice(-1);const rec=[...new Set([...N[s][2],...EL[el].slice(0,2)])];st.res={num:s,el,rec};render()}
+function r0(){return st.res.rec.slice(0,2).flatMap(i=>[i,i,i,i,i,i,i]).slice(0,14)}
+function recShop(){const rec=st.res.rec;st.cat='全部';st.q='';go('shop');$('#pl').innerHTML=P.filter(p=>p.st.some(i=>rec.includes(i))).map(card).join('')||'<p class="sub">暫無完全符合的商品，歡迎客製。</p>';$('#app').insertAdjacentHTML('afterbegin',`<p class="sub">依你的測驗結果推薦（${rec.map(i=>S[i].n).join('、')}）</p>`)}
+function addBead(i){if(st.custom.length>=18){toast('最多 18 顆');return}st.custom.push(i);drawCustom()}
+function drawCustom(){$('#prev').innerHTML=wrist(st.custom);$('#cnt').textContent=st.custom.length+' 顆';$('#tot').textContent='NT$ '+(price(st.custom)+100);
+$('#sel').innerHTML=st.custom.map((i,k)=>`<button class="chip" onclick="st.custom.splice(${k},1);drawCustom()"><span class="dot" style="background:${S[i].c}"></span> ×</button>`).join('')}
+function addCustom(){if(st.custom.length<6){toast('至少選 6 顆礦石');return}add({id:'c'+Date.now(),n:'我的專屬手鍊',beads:[...st.custom],price:price(st.custom)+100,size:st.size})}
+function add(it){const f=st.cart.find(c=>c.id===it.id&&c.size===it.size);f?f.qty++:st.cart.push({...it,qty:1});render();toast('已加入購物車')}
+function detail(id){const p=P.find(x=>x.id===id),b=beadsOf(p);$('#layer').innerHTML=`<div class="modal" onclick="if(event.target===this)closeL()"><div class="sheet"><button class="x" onclick="closeL()">×</button><h2>${p.n}</h2>${wrist(b)}<p class="note" style="text-align:center">配戴效果模擬</p><p>${p.d}</p><p>${[...new Set(p.st)].map(i=>`<span class="tag">${S[i].n}・${S[i].e}・${S[i].k}</span>`).join('')}</p>
+<div class="row"><select id="ds" style="width:auto">${[14,15,16,17,18].map(s=>`<option>${s}</option>`).join('')}</select><span>cm</span><b class="price" style="margin-left:auto">NT$ ${prodPrice(p)}</b></div><br><button class="btn" style="width:100%" onclick="add({id:${p.id},n:'${p.n}',beads:${JSON.stringify(b)},price:${prodPrice(p)},size:$('#ds').value});closeL()">加入購物車</button></div></div>`}
+function closeL(){$('#layer').innerHTML=''}
+function total(){return st.cart.reduce((a,c)=>a+c.price*c.qty,0)}
+function openCart(){const c=st.cart;$('#layer').innerHTML=`<div class="modal" onclick="if(event.target===this)closeL()"><div class="sheet"><button class="x" onclick="closeL()">×</button><h2>購物車</h2>
+${c.map((x,k)=>`<div class="line"><span>${x.n}<br><small class="note">${x.size?'手圍 '+x.size+' cm':''}</small></span><span class="row"><button class="chip" onclick="qty(${k},-1)">−</button>${x.qty}<button class="chip" onclick="qty(${k},1)">＋</button><b>NT$ ${x.price*x.qty}</b></span></div>`).join('')||'<p class="sub">購物車是空的。</p>'}
+${c.length?`<p style="text-align:right"><b class="price">合計 NT$ ${total()}</b></p><button class="btn" style="width:100%" onclick="checkout()">前往結帳</button>`:''}</div></div>`}
+function qty(k,d){st.cart[k].qty+=d;if(st.cart[k].qty<1)st.cart.splice(k,1);render();openCart()}
+function checkout(){$('#layer').innerHTML=`<div class="modal"><div class="sheet"><button class="x" onclick="closeL()">×</button><h2>結帳</h2><div class="row" style="flex-direction:column;align-items:stretch"><input id="f1" placeholder="收件人姓名"><input id="f2" placeholder="手機號碼"><input id="f3" placeholder="配送地址"></div><p><b class="price">應付 NT$ ${total()}</b>（Demo 不會實際扣款）</p><button class="btn" style="width:100%" onclick="pay()">確認下單</button></div></div>`}
+function pay(){if(!$('#f1').value||!$('#f2').value||!$('#f3').value){toast('請填寫完整資料');return}const no='KY'+Date.now().toString().slice(-6);st.orders.unshift({no,items:st.cart.reduce((a,c)=>a+c.qty,0),total:total()});st.cart=[];
+$('#layer').innerHTML=`<div class="modal"><div class="sheet" style="text-align:center"><div class="big">✓</div><h2>訂單成立</h2><p>訂單編號 ${no}</p><button class="btn" onclick="closeL();go('after')">到售後專區查看</button></div></div>`;render()}
+Object.assign(st,{t:null,d:null,v:null,pf:null,rec:null});
+const K=Object.keys(S);
+const CH={amethyst:['頂輪','紫'],rose:['心輪','粉'],carnelian:['臍輪','紅'],citrine:['太陽神經叢','黃'],tiger:['太陽神經叢','棕'],clear:['頂輪','白'],rutile:['太陽神經叢','金'],green:['心輪','綠'],aventurine:['心輪','綠'],obs:['海底輪','黑'],moon:['眉心輪','白'],lapis:['喉輪','藍']};
+const SC={1:'安睡放鬆',2:'事業成長',3:'行動力',4:'專注溝通',5:'靈感創作',6:'財運',7:'愛情人緣',8:'守護避邪'};
+P.forEach(p=>{p.type='設計款';p.sc=SC[p.id]});
+K.forEach((id,i)=>{P.push({id:101+i,type:'單品手珠',n:S[id].n+'手珠',st:[id],style:['圓珠','切面珠','隨形','方糖珠'][i%4],d:'主打「'+S[id].k+'」的天然'+S[id].n+'單品手珠。'});P.push({id:201+i,type:'吊墜',n:S[id].n+'吊墜',st:[id],style:['水滴','圓牌','原礦','柱狀'][i%4],d:'主打「'+S[id].k+'」的天然'+S[id].n+'吊墜。'})});
+P.push({id:301,type:'淨化工具',m:'礦晶淨化',n:'白水晶簇',price:380,e:'💎',st:[],d:'置於礦石旁，持續淨化與充能。'},{id:302,type:'淨化工具',m:'礦晶淨化',n:'紫水晶洞',price:680,e:'🔮',st:[],d:'天然晶洞，適合放在桌面或床邊。'},{id:303,type:'淨化工具',m:'薰香淨化',n:'白鼠尾草束',price:180,e:'🌿',st:[],d:'點燃煙燻手鍊與空間，清除雜訊。'},{id:304,type:'淨化工具',m:'薰香淨化',n:'聖木香',price:220,e:'🪵',st:[],d:'氣味溫潤，適合冥想前使用。'},{id:305,type:'淨化工具',m:'音波淨化',n:'頌缽',price:1280,e:'🔔',st:[],d:'以泛音震動淨化礦石與空間。'},{id:306,type:'淨化工具',m:'音波淨化',n:'水晶音叉',price:880,e:'🎵',st:[],d:'輕敲後靠近礦石，快速淨化。'});
+const chs=p=>[...new Set(p.st.map(i=>CH[i][0]))],cols=p=>[...new Set(p.st.map(i=>CH[i][1]))],els=p=>[...new Set(p.st.map(i=>S[i].e))],nums=p=>Object.keys(N).filter(k=>p.st.some(i=>N[k][2].includes(i)));
+const DIMS={'單品手珠':['款式','顏色','脈輪','數字','五行'],'設計款':['脈輪','情境功能'],'吊墜':['款式','顏色','脈輪','數字','五行'],'淨化工具':['礦晶淨化','薰香淨化','音波淨化']};
+const ICON={'單品手珠':'📿','設計款':'✨','吊墜':'🔮','淨化工具':'🌿'};
+function attr(p,d){return d==='款式'?[p.style]:d==='顏色'?cols(p):d==='脈輪'?chs(p):d==='數字'?nums(p).map(n=>'靈數 '+n):d==='五行'?els(p):d==='情境功能'?[p.sc]:[]}
+function vals(t,d){return [...new Set(P.filter(p=>p.type===t).flatMap(p=>attr(p,d)))].sort()}
+function filt(){const q=st.q.trim();if(q)return P.filter(p=>(p.n+p.type+(p.style||'')+(p.sc||'')+(p.m||'')+p.d+p.st.map(i=>S[i].n+S[i].e+S[i].k+CH[i].join('')).join('')).includes(q));if(st.rec)return P.filter(p=>p.st.some(i=>st.rec.includes(i)));if(!st.t)return null;return P.filter(p=>p.type===st.t&&(!st.d||(st.t==='淨化工具'?p.m===st.d:!st.v||attr(p,st.d).includes(st.v))))}
+function img(p){if(p.type==='吊墜'){return `<svg viewBox="0 0 340 210"><path d="M95 20 Q170 190 245 20" fill="none" stroke="#b9a58a" stroke-width="3"/><path d="M170 103 C140 140 145 185 170 185 C195 185 200 140 170 103Z" fill="${S[p.st[0]].c}" stroke="rgba(0,0,0,.3)"/><circle cx="162" cy="150" r="6" fill="#fff" opacity=".5"/></svg>`}if(p.type==='淨化工具')return `<svg viewBox="0 0 340 210"><text x="170" y="135" font-size="90" text-anchor="middle">${p.e}</text></svg>`;return ringImg(beadsOf(p))}
+function sf(){let h='';if(st.rec)h+=`<p class="sub">依你的測驗結果推薦（${st.rec.map(i=>S[i].n).join('、')}） <button class="chip" onclick="st.rec=null;render()">清除</button></p>`;if(st.t&&!st.q&&!st.rec){h+=`<div class="chips">${DIMS[st.t].map(d=>`<button class="chip ${st.d===d?'on':''}" onclick="pickD('${d}')">${st.t==='淨化工具'?d:'依'+d}</button>`).join('')}</div>`;if(st.d&&st.t!=='淨化工具')h+=`<div class="chips">${vals(st.t,st.d).map(v=>`<button class="chip ${st.v===v?'on':''}" onclick="st.v='${v}';render()">${v}</button>`).join('')}</div>`}return h}
+function plist(l){return l===null?'<p class="sub">請選擇上方分類，或輸入關鍵字搜尋。</p>':l.map(card).join('')||'<p class="sub">找不到符合的商品。</p>'}
+function shopList(){$('#sf').innerHTML=sf();$('#pl').innerHTML=plist(filt())}
+function pick(t){st.t=t;st.d=null;st.v=null;st.q='';st.rec=null;render()}
+function pickD(d){st.d=d;st.v=null;render()}
+function recShop(){st.rec=st.res.rec;st.t=null;st.q='';go('shop')}
+function go(v){st.view=v;if(v==='profile')st.pf=null;render();window.scrollTo(0,0)}
+V.shop=()=>`<h1>商品列表</h1><input id="qi" placeholder="關鍵字快速搜尋，例如：紫水晶、頂輪、財運" value="${st.q}" oninput="st.q=this.value;st.rec=null;shopList()"><div class="icons">${Object.keys(ICON).map(t=>`<button class="ico ${st.t===t&&!st.q&&!st.rec?'on':''}" onclick="pick('${t}')"><span>${ICON[t]}</span>${t}</button>`).join('')}</div><div id="sf">${sf()}</div><div class="grid" id="pl">${plist(filt())}</div>`;
+V.home=()=>{const se=[5,4,8].map(id=>P.find(p=>p.id===id)),hot=[7,3,6,101,201,301].map(id=>P.find(p=>p.id===id));return `<div style="text-align:center;margin-bottom:18px"><div class="biglogo">礦語</div><div class="sub" style="margin:0">藉由創作，與自己深度對話</div></div><section class="season"><div class="row" style="justify-content:space-between"><h2>2026 冬季當季商品</h2><button class="chip" onclick="go('shop')">看全部商品</button></div><div class="srow">${se.map(p=>`<div class="sitem" onclick="detail(${p.id})">${img(p)}<b>${p.n}</b><small>${p.sc}</small></div>`).join('')}</div></section><h2 style="margin-top:26px">熱門商品</h2><div class="grid">${hot.map(card).join('')}</div>`};
+const CHK=[['海底輪','紅','尾椎','安全感與穩定'],['臍輪','橙','下腹','情感與創造力'],['太陽神經叢','黃','上腹','自信與行動'],['心輪','綠','胸口','愛與關係'],['喉輪','藍','喉嚨','表達與溝通'],['眉心輪','靛','眉心','直覺與洞察'],['頂輪','紫','頭頂','靈性與智慧']];
+const TN=['愚者','魔術師','女祭司','皇后','皇帝','教皇','戀人','戰車','力量','隱者','命運之輪','正義','倒吊人','死神','節制','惡魔','塔','星星','月亮','太陽','審判','世界'];
+const TK=['新的開始','展現創造力','相信直覺','豐盛滋養','建立秩序','學習傳承','面對選擇','向前推進','溫柔的勇氣','向內省思','轉機來臨','公平平衡','換個視角','結束與重生','調和節奏','放下執著','突破重整','懷抱希望','面對不安','喜悅明朗','覺醒回應','圓滿完成'];
+function tarot(){const v=$('#tbd').value;if(!v){toast('請先輸入生日');return}st.bd=v;const [y,m,d]=v.split('-').map(Number),dg=x=>String(x).split('').reduce((a,b)=>a+ +b,0);let s=dg(m)+dg(d)+dg(new Date().getFullYear());while(s>22)s=dg(s);st.tarot=s;render()}
+V.profile=()=>{const back=`<button class="chip" onclick="st.pf=null;render()">← 能量檔案</button>`;
+if(st.pf==='quiz')return back+V.quiz();
+if(st.pf==='chakra')return back+`<h1>脈輪</h1><p class="sub">七個能量中心，找到你想補強的位置。</p><div class="card">${CHK.map(c=>`<details><summary>${c[0]}（${c[1]}）· ${c[3]}</summary><p>位置：${c[2]}</p><p>${K.filter(i=>CH[i][0]===c[0]).map(i=>`<span class="tag">${S[i].n}</span>`).join('')}</p><button class="btn ghost" onclick="st.t='單品手珠';st.d='脈輪';st.v='${c[0]}';st.q='';st.rec=null;go('shop')">看${c[0]}手珠</button></details>`).join('')}</div>`;
+if(st.pf==='tarot'){const n=st.tarot,c=n===22?0:n,r=((n||1)-1)%9+1;return back+`<h1>流年塔羅</h1><p class="sub">以生日加上今年，算出你的流年牌。</p><div class="card" style="max-width:460px"><input type="date" id="tbd" value="${st.bd||''}"><br><br><button class="btn" onclick="tarot()">抽出流年牌</button></div>${n?`<div class="card" style="margin-top:16px"><div class="big">${c}</div><h2>${TN[c]}</h2><p>今年的關鍵字：${TK[c]}。</p><p>建議礦石：${N[r][2].map(i=>`<span class="tag">${S[i].n}</span>`).join('')}</p><button class="btn" onclick="st.rec=[${N[r][2].map(i=>`'${i}'`).join(',')}];st.t=null;st.q='';go('shop')">看推薦商品</button></div>`:''}`}
+return `<h1>能量檔案</h1><p class="sub">認識自己的能量，作為挑選飾品的依據。</p><div class="icons">${[['chakra','🌈','脈輪'],['quiz','🔢','生命靈數'],['quiz','☯️','五行'],['tarot','🃏','流年塔羅']].map(t=>`<button class="ico" onclick="st.pf='${t[0]}';render()">${'<span>'+t[1]+'</span>'}${t[2]}</button>`).join('')}</div>`};
+function detail(id){const p=P.find(x=>x.id===id),sz=p.type==='單品手珠'||p.type==='設計款';$('#layer').innerHTML=`<div class="modal" onclick="if(event.target===this)closeL()"><div class="sheet"><button class="x" onclick="closeL()">×</button><h2>${p.n}</h2><div id="di">${img(p)}</div>${sz?`<div style="text-align:center"><button class="chip sm" onclick="$('#di').innerHTML=img(P.find(x=>x.id===${p.id}))">商品圖</button> <button class="chip sm" onclick="$('#di').innerHTML=wrist(beadsOf(P.find(x=>x.id===${p.id})))">配戴效果</button></div>`:''}<p>${p.d}</p><p>${p.type==='淨化工具'?`<span class="tag">${p.m}</span>`:[...new Set(p.st)].map(i=>`<span class="tag">${S[i].n}・${CH[i][0]}・${S[i].e}・${S[i].k}</span>`).join('')}</p><div class="row">${sz?`<select id="ds" style="width:auto">${[14,15,16,17,18].map(s=>`<option>${s}</option>`).join('')}</select><span>cm</span>`:''}<b class="price" style="margin-left:auto">NT$ ${prodPrice(p)}</b></div><br><button class="btn" style="width:100%" onclick="addP(${p.id})">加入購物車</button></div></div>`}
+function addP(id){const p=P.find(x=>x.id===id),s=$('#ds');add({id:p.id,n:p.n,beads:p.type==='淨化工具'?[]:beadsOf(p),price:prodPrice(p),size:s?s.value:''});closeL()}
+const T={tab:'num',cal:'西元',ans:[],y:'',m:'',d:''};
+const D={b:[],size:15,dia:8,sel:-1,h:[],r:[],sym:false,big:'單珠',val:'',sub:'全部',q:'',cur:null,num:false,skin:'#f1cfb4',hs:1,rot:0,name:'',fav:[],ed:null,pr:'',sty:'',rec:null};
+const ds=s=>[...String(s)].reduce((a,c)=>a+ +c,0),red=n=>{while(n>9)n=ds(n);return n};
+const MAT=[];
+K.forEach(id=>{const s=S[id],m=['clear','amethyst','rose','citrine'].includes(id)?'水晶':'天然石';MAT.push({id,n:s.n,m,sub:'圓珠',c:s.c,p:s.p,st:id});MAT.push({id:id+'x',n:s.n+'隨形',m,sub:'隨形珠',c:s.c,p:s.p+10,dia:10,fix:1,st:id})});
+[['pw','白珍珠','珍珠','#f6efe4',40],['pp','粉珍珠','珍珠','#f3d1d6',40],['wd','檀木珠','木珠','#8a5a3b',30],['gb','琉璃藍','玻璃珠','#4a78c2',25],['go','琉璃橘','玻璃珠','#e98a4b',25]].forEach(a=>MAT.push({id:a[0],n:a[1],m:a[2],sub:'圓珠',c:a[3],p:a[4]}));
+[['sp','金隔片','金屬隔珠','隔片','#d4a93a',20,3],['ss','銀隔片','金屬隔珠','隔片','#c3c9d4',15,3],['fl','金花托','金屬隔珠','花托','#c99a3b',25,5],['mo','月亮吊墜','吊墜','吊墜','#e6c27a',60,10],['sr','星星吊墜','吊墜','吊墜','#d9a35a',60,10]].forEach(a=>MAT.push({id:a[0],n:a[1],m:a[2],sub:a[3],c:a[4],p:a[5],dia:a[6],fix:1}));
+const cg={pw:'白',pp:'粉',wd:'棕',gb:'藍',go:'橙',sp:'金',ss:'白',fl:'金',mo:'金',sr:'金'};
+const mc=m=>m.st?CH[m.st][1]:cg[m.id],mn=m=>m.st?nums({st:[m.st]}):[],me=m=>m.st?S[m.st].e:'',mh=m=>m.st?CH[m.st][0]:'';
+const BIG=['單珠','配飾','按顏色','按數字','按五行','按脈輪','按塔羅'],SUBS=['全部','圓珠','隨形珠','花托','隔片','吊墜'];
+const bpm=m=>Math.round(m.fix?m.p:m.p*(D.dia/8)**2),bp=b=>Math.round(b.fix?b.p:b.p*(b.dia/8)**2);
+const TT=()=>D.size*10,LL=l=>l.reduce((a,b)=>a+b.dia,0),tot=()=>priceOf(D.b),priceOf=b=>b.reduce((a,x)=>a+bp(x),0)+(b.length?100:0);
+const mkB=m=>({id:m.id,n:m.n,m:m.m,c:m.c,p:m.p,dia:m.fix?m.dia:D.dia,fix:m.fix?1:0});
+function bvals(){const b=D.big;return b==='單珠'?['水晶','珍珠','天然石','木珠','玻璃珠']:b==='配飾'?['金屬隔珠','吊墜']:b==='按顏色'?[...new Set(MAT.map(mc))]:b==='按數字'?['1','2','3','4','5','6','7','8','9']:b==='按五行'?['木','火','土','金','水']:b==='按脈輪'?[...new Set(K.map(i=>CH[i][0]))]:[1,2,3,4,5,6,7,8,9].map(n=>TN[n])}
+function lib(){const q=D.q.trim(),b=D.big,v=D.val;return MAT.filter(m=>{const acc=['金屬隔珠','吊墜'].includes(m.m);if(b==='單珠'&&acc)return 0;if(b==='配飾'&&!acc)return 0;
+if(v){if(b==='單珠'||b==='配飾'){if(m.m!==v)return 0}else if(b==='按顏色'){if(mc(m)!==v)return 0}else if(b==='按數字'){if(!mn(m).includes(v))return 0}else if(b==='按五行'){if(me(m)!==v)return 0}else if(b==='按脈輪'){if(mh(m)!==v)return 0}else if(!mn(m).some(n=>TN[n]===v))return 0}
+if(D.sub!=='全部'&&m.sub!==D.sub)return 0;if(q&&!(m.n+m.m+m.sub+mc(m)+me(m)+mh(m)).includes(q))return 0;return 1})}
+function libDraw(){$('#bigs').innerHTML=BIG.map(x=>`<button class="chip ${D.big===x?'on':''}" onclick="D.big='${x}';D.val='';libDraw()">${x}</button>`).join('');
+$('#vals').innerHTML=bvals().map(x=>`<button class="chip sm ${D.val===x?'on':''}" onclick="D.val=D.val==='${x}'?'':'${x}';libDraw()">${x}</button>`).join('');
+$('#subs').innerHTML=SUBS.map(x=>`<button class="sub ${D.sub===x?'on':''}" onclick="D.sub='${x}';libDraw()">${x}</button>`).join('');
+$('#items').innerHTML=lib().map(m=>`<div class="it" onclick="addB('${m.id}')"><i class="bead" style="background:${m.c}"></i><b>${m.n}</b><small>Ø${m.fix?m.dia:D.dia}mm · NT$${bpm(m)}</small>${D.rec&&D.rec.includes(m.st)?'<em>★推薦</em>':''}</div>`).join('')||'<p class="sub">沒有符合的素材</p>'}
+function angs(l){const t=Math.max(LL(l),TT());let c=0;return l.map(b=>{const a=(c+b.dia/2)/t*2*Math.PI;c+=b.dia;return a})}
+function cvSvg(ro){const l=D.b,a=angs(l),s=2*Math.PI*125/Math.max(LL(l),TT());let g='<circle cx="160" cy="160" r="125" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 6"/>';
+l.forEach((b,i)=>{const x=160+125*Math.sin(a[i]),y=160-125*Math.cos(a[i]),r=b.dia/2*s,on=D.sel===i;g+=`<g class="bd" ${ro?'':`onpointerdown="bdDown(event,${i})"`}><circle cx="${x}" cy="${y}" r="${r}" fill="${b.c}" stroke="${on?'#e98a4b':'rgba(0,0,0,.25)'}" stroke-width="${on?3:1}"/><circle cx="${x-r*.3}" cy="${y-r*.3}" r="${r*.28}" fill="#fff" opacity=".5"/>${D.num?`<text x="${x}" y="${y+4}" text-anchor="middle" font-size="${Math.max(8,r*.8)}" fill="#222">${i+1}</text>`:''}</g>`});
+return g+`<text x="160" y="154" text-anchor="middle" fill="var(--mute)" font-size="13">手圍 ${D.size} cm</text><text x="160" y="176" text-anchor="middle" fill="var(--gold)" font-size="16" font-weight="700">NT$ ${tot()}</text>`}
+function bdDown(e,i){e.preventDefault();const g=e.currentTarget,svg=$('#cv'),pt=ev=>{const r=svg.getBoundingClientRect();return[(ev.clientX-r.left)/r.width*320,(ev.clientY-r.top)/r.height*320]},over=ev=>{const r=$('#trash').getBoundingClientRect();return ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom},[x0,y0]=pt(e);let moved=false;
+const mv=ev=>{const [x,y]=pt(ev);if(Math.hypot(x-x0,y-y0)>5)moved=true;if(moved){g.setAttribute('transform',`translate(${x-x0} ${y-y0})`);$('#trash').classList.toggle('hot',over(ev))}};
+const up=ev=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);if(!moved){D.sel=D.sel===i?-1:i;diyDraw();return}
+snap();if(over(ev)){D.b.splice(i,1);D.sel=-1}else{const [x,y]=pt(ev);let a=Math.atan2(x-160,160-y);if(a<0)a+=2*Math.PI;const b=D.b.splice(i,1)[0],an=angs(D.b);let k=an.findIndex(v=>v>a);if(k<0)k=D.b.length;D.b.splice(k,0,b);D.sel=k}
+$('#trash').classList.remove('hot');diyDraw()};addEventListener('pointermove',mv);addEventListener('pointerup',up)}
+function snap(){D.h.push(JSON.stringify(D.b));if(D.h.length>50)D.h.shift();D.r=[]}
+function undo(){if(!D.h.length)return;D.r.push(JSON.stringify(D.b));D.b=JSON.parse(D.h.pop());D.sel=-1;diyDraw()}
+function redo(){if(!D.r.length)return;D.h.push(JSON.stringify(D.b));D.b=JSON.parse(D.r.pop());D.sel=-1;diyDraw()}
+function addB(id){const m=MAT.find(x=>x.id===id);snap();D.cur=m;if(D.sym&&D.b.length)D.b.splice(D.b.length>>1,0,mkB(m),mkB(m));else D.b.push(mkB(m));diyDraw()}
+function fillB(){const m=D.cur?mkB(D.cur):D.b.length?{...D.b[D.b.length-1]}:null;if(!m){toast('請先選一種珠子');return}snap();while(LL(D.b)+m.dia<=TT())D.b.push({...m});diyDraw()}
+function mirror(){snap();const n=D.b.length,h=D.b.slice(0,n>>1),mid=n%2?[D.b[n>>1]]:[];D.b=[...h,...mid,...h.slice().reverse()];diyDraw()}
+function selD(d){snap();const b=D.b[D.sel];b.dia=Math.max(3,Math.min(20,b.dia+d));diyDraw()}
+function delSel(){snap();D.b.splice(D.sel,1);D.sel=-1;diyDraw()}
+function tryon(){const l=D.b,cx=170,cy=105,rx=15,ry=48*D.hs,t0=D.rot*Math.PI/180,Lm=Math.max(LL(l),TT()),per=2*Math.PI*Math.sqrt((rx*rx+ry*ry)/2);let bk='',fr='',c=0;
+l.forEach(b=>{const t=(c+b.dia/2)/Lm*2*Math.PI+t0;c+=b.dia;const x=cx+Math.sin(t)*rx,y=cy-Math.cos(t)*ry,r=Math.min(18,.47*per*b.dia/Lm),e=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${b.c}" stroke="rgba(0,0,0,.25)"/><circle cx="${(x-r*.3).toFixed(1)}" cy="${(y-r*.3).toFixed(1)}" r="${(r*.28).toFixed(1)}" fill="#fff" opacity=".55"/>`;if(Math.sin(t)>=0)fr+=e;else bk+=e});
+const h=74*D.hs;return `<svg viewBox="-5 0 365 210" style="width:100%"><g>${bk}</g>${arm(D.skin,D.hs)}<g>${fr}</g></svg>`}
+function stripDraw(){let x=10,sg='';const hh=Math.max(...D.b.map(b=>b.dia*3),20)+8;D.b.forEach((b,i)=>{const r=b.dia*1.5;sg+=`<circle cx="${x+r}" cy="${hh/2}" r="${r}" fill="${b.c}" stroke="rgba(0,0,0,.25)"/>${D.num?`<text x="${x+r}" y="${hh/2+3}" text-anchor="middle" font-size="${Math.max(7,r*.8)}">${i+1}</text>`:''}`;x+=b.dia*3});
+$('#strip').innerHTML=`<svg viewBox="0 0 ${Math.max(x+10,80)} ${hh}" style="width:100%">${sg}</svg>`;}
+function trDraw(){$('#tr').innerHTML=tryon()}
+function billH(){const m={};D.b.forEach(b=>{const k=b.n+'|'+b.dia;m[k]=m[k]||{b,c:0};m[k].c++});const rows=Object.values(m);return rows.map(r=>`<div class="line"><span>${r.b.n} <small class="note">${r.b.m}・${r.b.dia}mm</small></span><span>×${r.c}</span><b>NT$ ${bp(r.b)*r.c}</b></div>`).join('')+(rows.length?`<div class="line"><span>串製工資</span><span></span><b>NT$ 100</b></div><div class="line"><b>報價合計</b><span></span><b class="price">NT$ ${tot()}</b></div>`:'<p class="sub">尚未選擇珠子</p>')}
+function diyDraw(){const L=LL(D.b),T0=TT(),s=D.b[D.sel];$('#cv').innerHTML=cvSvg();
+$('#meta').innerHTML=`<span>${D.b.length} 顆</span><span class="${L>T0?'warn':''}">長度 ${L}/${T0} mm${L>T0?'（超出手圍）':''}</span><b class="price">NT$ ${tot()}</b>`;
+$('#selp').innerHTML=s?`<div class="row"><i class="bead sm" style="background:${s.c}"></i><b>${s.n}</b><button class="chip" onclick="selD(-1)">−</button>${s.dia}mm<button class="chip" onclick="selD(1)">＋</button><button class="chip" onclick="delSel()">刪除</button></div>`:'<p class="note">點選珠子可調整尺寸；拖曳換位置，拖到垃圾桶刪除。</p>';
+$('#tools').innerHTML=`<button class="chip" onclick="undo()">↶ 撤銷</button><button class="chip" onclick="redo()">↷ 重做</button><button class="chip" onclick="fillB()">一鍵補滿</button><button class="chip" onclick="mirror()">對稱排列</button><button class="chip ${D.sym?'on':''}" onclick="D.sym=!D.sym;diyDraw()">即時鏡像</button><button class="chip ${D.num?'on':''}" onclick="D.num=!D.num;diyDraw()">編號</button><button class="chip" onclick="snap();D.b=[];D.sel=-1;diyDraw()">清空</button>`;
+$('#bill').innerHTML=billH();favDraw()}
+function favDraw(){$('#favs').innerHTML=D.fav.map((f,i)=>`<div class="line"><span>${f.n}<br><small class="note">${f.b.length} 顆 · ${f.size}cm · NT$ ${priceOf(f.b)}</small></span><span class="row"><button class="chip sm" onclick="favEdit(${i})">編輯</button><button class="chip sm" onclick="favBuy(${i})">送出訂單</button><button class="chip sm" onclick="favDel(${i})">刪除</button></span></div>`).join('')||'<p class="sub">尚無收藏方案</p>'}
+function saveFav(){if(!D.b.length){toast('請先設計手串');return}const f={n:D.name||'我的設計 '+(D.fav.length+1),b:JSON.parse(JSON.stringify(D.b)),size:D.size};if(D.ed!=null)D.fav[D.ed]=f;else D.fav.push(f);D.ed=null;D.name='';render();toast('已收藏方案')}
+function favEdit(i){snap();D.b=JSON.parse(JSON.stringify(D.fav[i].b));D.size=D.fav[i].size;D.name=D.fav[i].n;D.ed=i;D.sel=-1;render()}
+function favDel(i){D.fav.splice(i,1);if(D.ed===i)D.ed=null;favDraw()}
+function favBuy(i){const f=D.fav[i];add({id:'f'+Date.now(),n:f.n,beads:[],price:priceOf(f.b),size:f.size})}
+const STY={新中式:['wd','sp','lapis','sp','moon'],波西米亞:['carnelian','tiger','gb','go','fl'],韓系溫柔:['pp','rose','moon','pw','ss'],Y2K:['gb','rose','go','ss','amethyst'],暗黑復古:['obs','sp','wd','tiger','obs'],自然森系:['green','aventurine','wd','citrine','pw']};
+function gen(){const p=D.pr;let s=D.sty;Object.keys(STY).forEach(k=>{if(p.includes(k))s=k});if(!s){toast('請選擇風格，或在提示詞輸入風格名');return}
+const acc=MAT.filter(m=>m.sub==='圓珠'&&p.includes(m.n)),rec=STY[s].map(i=>MAT.find(m=>m.id===i));snap();D.b=[];D.sel=-1;let k=0;
+while(k<60){const m=acc.length&&k%4===3?acc[(k>>2)%acc.length]:rec[k%rec.length],b=mkB(m);if(LL(D.b)+b.dia>TT())break;D.b.push(b);k++}D.sty=s;render();toast('已生成「'+s+'」搭配，可在畫布微調')}
+function toDIY(ids){snap();D.rec=ids;D.big='單珠';D.val='';D.sub='全部';D.b=[];D.sel=-1;let k=0;while(k<40){const b=mkB(MAT.find(x=>x.id===ids[k%ids.length]));if(LL(D.b)+b.dia>TT())break;D.b.push(b);k++}go('diy')}
+function arm(skin,hs){const ln='stroke="rgba(0,0,0,.13)"';return `<g transform="translate(225 105) scale(${hs}) translate(-225 -105)"><rect x="10" y="68" width="225" height="74" rx="30" fill="${skin}"/><rect x="214" y="64" width="72" height="82" rx="26" fill="${skin}"/>${[[78,332],[95,338],[112,334],[129,322]].map(a=>`<rect x="268" y="${a[0]-7.5}" width="${a[1]-268}" height="15" rx="7.5" fill="${skin}" ${ln}/>`).join('')}<rect x="236" y="42" width="48" height="17" rx="8.5" fill="${skin}" ${ln} transform="rotate(-28 238 60)"/></g>`}
+V.diy=()=>`<h1>DIY 手串設計</h1><div class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">材料成本與報價</h2><div class="row"><button class="btn ghost" onclick="go('preview')">成品預覽</button><button class="btn" onclick="orderNow()">下訂製作</button></div></div><div id="bill" class="billbox"></div></div>
+<div class="diy" style="margin-top:16px"><div class="card"><div class="row"><label>手圍 <input type="number" min="12" max="20" step="0.5" value="${D.size}" style="width:84px" onchange="D.size=+this.value||15;diyDraw()"> cm</label><label>預設珠徑 <select style="width:auto" onchange="D.dia=+this.value;libDraw();">${[6,8,10,12].map(n=>`<option ${D.dia===n?'selected':''}>${n}</option>`).join('')}</select> mm</label></div>
+<div class="cvwrap"><svg id="cv" viewBox="0 0 320 320"></svg><div id="trash">🗑</div></div><div id="tools" class="tools"></div><div id="selp"></div><div class="meta" id="meta"></div></div>
+<div class="card"><h2>✨ AI 風格靈感搭配</h2><div class="chips">${Object.keys(STY).map(k=>`<button class="chip ${D.sty===k?'on':''}" onclick="D.sty='${k}';render()">${k}</button>`).join('')}</div><div class="row"><input style="flex:1;min-width:200px" placeholder="提示詞，例如：溫柔的粉色系、加一點月光石" value="${D.pr}" oninput="D.pr=this.value"><button class="btn" onclick="gen()">一鍵生成</button></div><p class="note">Demo：依風格預設規則生成，生成後可在畫布自由微調。</p></div></div>
+<div class="card libbig" style="margin-top:16px"><h2>珠子素材庫</h2><div class="chips" id="bigs"></div><input placeholder="快速搜尋：名稱、材質、顏色、五行…" value="${D.q}" oninput="D.q=this.value;libDraw()"><div class="chips" id="vals"></div><div class="libbody"><div class="subs" id="subs"></div><div class="items" id="items"></div></div></div>
+<div class="card" style="margin-top:16px"><h2>作品收藏夾</h2><div class="row"><input style="flex:1" placeholder="為設計方案命名" value="${D.name}" oninput="D.name=this.value"><button class="btn" onclick="saveFav()">${D.ed!=null?'更新方案':'收藏方案'}</button></div><div id="favs"></div></div>`;
+V.preview=()=>`<div class="row" style="justify-content:space-between;margin-bottom:10px"><button class="chip" onclick="go('diy')">← 回 DIY</button><span class="row"><button class="chip ${D.num?'on':''}" onclick="D.num=!D.num;render()">顯示編號</button><button class="btn" onclick="orderNow()">下訂製作</button></span></div>
+<div class="pv"><div class="card pvt"><svg id="pcv" viewBox="0 0 320 320"></svg></div><div class="card pvb"><div id="strip"></div><div id="tr"></div><div class="row skins"><span class="note">膚色</span>${['#f6dcc6','#f1cfb4','#d9a77c','#a9714b'].map(c=>`<button style="background:${c}" onclick="D.skin='${c}';trDraw()"></button>`).join('')}<span class="note">手型</span>${[['小',.85],['中',1],['大',1.15]].map(h=>`<button class="chip sm" onclick="D.hs=${h[1]};trDraw()">${h[0]}</button>`).join('')}<span class="note">旋轉</span><input type="range" min="0" max="360" value="${D.rot}" style="flex:1;min-width:120px" oninput="D.rot=+this.value;trDraw()"></div></div></div>`;
+function pvDraw(){$('#pcv').innerHTML=cvSvg(true);stripDraw();trDraw()}
+function orderNow(){if(!D.b.length){toast('請先設計手串');return}add({id:'d'+Date.now(),n:D.name||'我的專屬手鍊',beads:[],price:tot(),size:D.size});checkout()}
+function ringImg(b){const n=b.length,R=66,r=Math.min(16,Math.PI*R/n*.92);return `<svg viewBox="0 0 340 210"><circle cx="170" cy="105" r="${R}" fill="none" stroke="#b9a58a" stroke-width="1.5" opacity=".6"/>${b.map((id,i)=>{const t=i/n*2*Math.PI,x=170+R*Math.sin(t),y=105-R*Math.cos(t);return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="${S[id].c}" stroke="rgba(0,0,0,.25)"/><circle cx="${(x-r*.3).toFixed(1)}" cy="${(y-r*.3).toFixed(1)}" r="${(r*.28).toFixed(1)}" fill="#fff" opacity=".55"/>`}).join('')}</svg>`}
+function dform(id){return `<div class="chips">${['西元','民國','農曆'].map(c=>`<button class="chip ${T.cal===c?'on':''}" onclick="sv('${id}');T.cal='${c}';render()">${c}</button>`).join('')}</div><div class="row"><input id="${id}y" type="number" placeholder="${T.cal==='民國'?'民國年':'出生年'}" value="${T.y}" style="width:110px"><input id="${id}m" type="number" placeholder="月" value="${T.m}" style="width:80px"><input id="${id}d" type="number" placeholder="日" value="${T.d}" style="width:80px"></div>${T.cal==='農曆'?'<p class="note">Demo：農曆以輸入的數字直接計算，未做農曆換算。</p>':''}<br>`}
+function sv(id){if($('#'+id+'y')){T.y=$('#'+id+'y').value;T.m=$('#'+id+'m').value;T.d=$('#'+id+'d').value}}
+function rd(id){sv(id);let y=+T.y,m=+T.m,d=+T.d;if(!y||m<1||m>12||d<1||d>31){toast('請完整輸入生日');return null}if(T.cal==='民國')y+=1911;return[y,m,d]}
+const stags=r=>r.map(i=>`<span class="tag">${S[i].n}・${S[i].k}</span>`).join(''),toBtn=r=>`<button class="btn" onclick="toDIY([${r.map(i=>`'${i}'`).join(',')}])">用這些礦石到 DIY 創作 →</button>`;
+const tcard=(n,t,l)=>`<div class="tcard"><div class="tn">${n}</div>${art(+n)}<div class="tt">${t}</div><i>${l}</i></div>`;
+const LS=[[4,9,2],[3,5,7],[8,1,6]];
+function calcN(){const b=rd('a');if(!b)return;const [y,m,d]=b,dg=''+y+m+d,cnt={};for(let i=1;i<10;i++)cnt[i]=0;[...dg].forEach(c=>{if(+c)cnt[c]++});T.rn={y,main:red(ds(dg)),inn:red(ds(d)),gift:red(ds(''+m+d)),cnt};render()}
+function numRes(r){const miss=[1,2,3,4,5,6,7,8,9].filter(n=>!r.cnt[n]),rec=[...new Set([...N[r.main][2],N[r.gift][2][0],...miss.slice(0,2).map(n=>N[n][2][0])])].slice(0,4);
+return `<div class="card" style="margin-top:16px"><div class="lo">${LS.flat().map(n=>{const c=r.cnt[n];return `<div class="lc ${c?'':'miss'}"><b>${c?String(n).repeat(c):n}</b><span>${(r.main===n?'<i>★</i>':'')+(r.inn===n?'<i>◆</i>':'')+(r.gift===n?'<i>✦</i>':'')+(c?'':'<i>○</i>')}</span></div>`}).join('')}</div><p class="note" style="text-align:center">★ 主命數　◆ 先天數　✦ 天賦數　○ 缺數（西元 ${r.y} 年）</p>
+<h2>解析</h2><p><b>主命數 ${r.main}・${N[r.main][0]}</b>：${N[r.main][1]}</p><p><b>先天數 ${r.inn}</b>：天生的底色偏向「${N[r.inn][0]}」。</p><p><b>天賦數 ${r.gift}</b>：可發展的才能偏向「${N[r.gift][0]}」。</p><p><b>缺數 ${miss.join('、')||'無'}</b>：${miss.length?'缺少的數字是可以多加練習的能量，搭配對應礦石能協助補足。':'九個數字都具備，能量相對均衡。'}</p><p>建議礦石：${stags(rec)}</p>${toBtn(rec)}</div>`}
+const QS=[['清晨醒來，你最想先做什麼？','靜靜待一會兒','傳訊息給重要的人','立刻出門動一動'],['理想的假日是？','圖書館或森林','與朋友聚餐','嘗試新活動'],['遇到困難時你傾向？','先沉澱思考','找人傾訴','直接行動解決'],['最吸引你的顏色？','深藍或紫','粉或柔橘','金黃或橘紅'],['希望今年多一點？','洞察與平靜','愛與連結','自信與豐盛']];
+const PSY={A:{c:'女祭司',n:2,l:'靜下來，答案早已在你心裡。',t:'你現在需要沉澱與直覺的力量。藍紫色系礦石能幫助你安定情緒、聽見內在的聲音。',s:['lapis','amethyst','moon']},B:{c:'皇后',n:3,l:'先擁抱自己，愛會自然流動。',t:'你現在需要溫柔與連結。粉橘色系礦石能滋養情感，也讓關係更柔軟。',s:['rose','moon','aventurine']},C:{c:'太陽',n:19,l:'你本身就是光，放心前行。',t:'你現在需要行動與自信。金橙色系礦石能點燃動力，帶來豐盛的感受。',s:['citrine','carnelian','rutile']}};
+function psyGo(){if(T.ans.filter(Boolean).length<QS.length){toast('請回答所有題目');return}const c={A:0,B:0,C:0};T.ans.forEach(a=>c[a]++);T.pr=Object.keys(c).sort((a,b)=>c[b]-c[a])[0];render()}
+function tarGo(){const b=rd('t');if(!b)return;let s=ds(b[1])+ds(b[2])+ds(new Date().getFullYear());while(s>22)s=ds(s);T.tr=s;render()}
+const tab3=()=>`<div class="chips">${[['num','生命靈數'],['psy','心理測驗'],['tar','流年塔羅']].map(t=>`<button class="chip ${T.tab===t[0]?'on':''}" onclick="T.tab='${t[0]}';render()">${t[1]}</button>`).join('')}</div>`;
+V.test=()=>{let h='';if(T.tab==='num')h=`<div class="card intro"><h2>🔢 生命靈數</h2><p>源自畢達哥拉斯的數字學，將生日化為 1–9 的數字，看見性格傾向、天賦與缺少的能量。</p>${dform('a')}<button class="btn" onclick="calcN()">送出計算</button></div>${T.rn?numRes(T.rn):''}`;
+else if(T.tab==='psy'){const p=T.pr?PSY[T.pr]:null;h=`<div class="card intro"><h2>🌙 心理測驗</h2><p>五個小問題，每題三個選項，憑直覺選擇，找出你現在最需要的礦石能量。</p>${QS.map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}</b><div class="chips">${['A','B','C'].map((k,j)=>`<button class="chip ${T.ans[i]===k?'on':''}" onclick="T.ans[${i}]='${k}';render()">${q[j+1]}</button>`).join('')}</div></div>`).join('')}<button class="btn" onclick="psyGo()">看結果</button></div>${p?`<div class="card" style="margin-top:16px">${tcard(p.n,p.c,p.l)}<h2>解析</h2><p>${p.t}</p><p>建議礦石：${stags(p.s)}</p>${toBtn(p.s)}</div>`:''}`}
+else{const n=T.tr,c=n===22?0:n,r=n?N[(n-1)%9+1][2]:[];h=`<div class="card intro"><h2>🃏 流年塔羅</h2><p>以出生月日加上今年的數字，得出代表這一年的塔羅牌，作為這一年的能量指引。</p>${dform('t')}<button class="btn" onclick="tarGo()">抽出流年牌</button></div>${n?`<div class="card" style="margin-top:16px">${tcard(c,TN[c],TK[c])}<h2>解析</h2><p>今年的關鍵字是「${TK[c]}」。把握與${TN[c]}相關的課題，搭配礦石穩定能量。</p><p>建議礦石：${stags(r)}</p>${toBtn(r)}</div>`:''}`}
+return `<h1>測驗區</h1>${tab3()}${h}`};
+const CK=[['大地之星','#6b4f3a','位於雙腳下方，連結大地、安定身心。','黑曜石、虎眼石'],['海底輪','#c0392b','尾椎，掌管生存與安全感。','紅瑪瑙、黑曜石'],['臍輪／生殖輪','#e98a4b','下腹，掌管情感與創造力。','紅瑪瑙、虎眼石'],['胃輪／太陽神經叢輪','#f2c94c','上腹，掌管自信與行動力。','黃水晶、鈦晶'],['心輪','#5fae7e','胸口，掌管愛與關係。','綠幽靈、東菱石、粉晶'],['喉輪','#4a78c2','喉嚨，掌管表達與溝通。','青金石'],['眉心輪','#3b3f9c','眉心，掌管直覺與洞察。','青金石、月光石'],['頂輪','#9b7fd1','頭頂，掌管靈性與智慧。','紫水晶、白水晶'],['靈魂之星','#e8e1f5','頭頂上方，連結高我與宇宙。','白水晶、鈦晶']];
+const CARE=['避免長時間曝曬、高溫與潮濕','運動、洗澡、游泳、睡覺時取下','避免接觸香水、化妝品與清潔劑','與硬物分開，放在軟布袋中收納','彈力線約 1–2 年建議更換'],PUR=[['月光淨化','滿月夜擺放窗邊 4–6 小時，適合多數礦石。'],['煙燻淨化','以白鼠尾草或聖木的煙繞過手串。'],['白水晶／消磁石','放在白水晶簇或消磁石上 6–12 小時。'],['音波淨化','以頌缽或音叉震動，快速且溫和。'],['注意','珍珠、木珠等易受損素材避免泡水與日曬。']];
+V.know=()=>{const t=st.kt||'脈輪';return `<h1>知識區</h1><div class="chips">${['脈輪','保養','淨化'].map(x=>`<button class="chip ${t===x?'on':''}" onclick="st.kt='${x}';render()">${x}</button>`).join('')}</div><div class="card">${t==='脈輪'?CK.map(c=>`<details><summary><i class="cd" style="background:${c[1]}"></i>${c[0]}</summary><p>${c[2]}</p><p>對應礦石：${c[3]}</p></details>`).join(''):(t==='保養'?'<h2>如何保養、保存水晶</h2>'+CARE.map(x=>`<details open><summary>${x}</summary></details>`).join(''):'<h2>如何淨化水晶</h2>'+PUR.map(x=>`<details open><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join(''))}</div>`};
+V.svc=()=>`<h1>服務區</h1><div class="two"><div class="card"><h2>📮 聯絡我們</h2><p>客服信箱：hello@example.com（範例）<br>服務時間：週一至週五 10:00–18:00</p></div><div class="card"><h2>🧵 水晶換線處理</h2><div class="row"><select id="wl" style="width:auto"><option>彈力線</option><option>鋼絲線</option><option>絲線</option></select><input id="ws" type="number" placeholder="手圍 cm" style="width:110px"><button class="btn" onclick="toast('已送出換線申請（Demo）')">送出申請</button></div><p class="note">換線約 3–5 個工作天。</p></div></div><br><div class="card"><h2>常見問題</h2>${QA.map(k=>`<details><summary>${k[0]}</summary><p>${k[1]}</p></details>`).join('')}</div><br><div class="card"><h2>我的訂單</h2>${st.orders.map(o=>`<div class="line"><span>${o.no}　${o.items} 件商品</span><b>NT$ ${o.total}　<span class="tag">製作中</span></b></div>`).join('')||'<p class="sub">尚無訂單，完成結帳後會顯示在這裡。</p>'}</div>`;
+V.soc=()=>`<h1>社群</h1><p class="sub">追蹤我們，獲得新品與礦石知識。</p><div class="grid">${[['📘','Facebook'],['💬','LINE'],['📷','Instagram']].map(s=>`<div class="card soc" onclick="toast('${s[1]} 連結待上線後填入（Demo）')"><span>${s[0]}</span><h2>${s[1]}</h2></div>`).join('')}</div>`;
+V.home=()=>{const se=[5,4,8].map(id=>P.find(p=>p.id===id)),hot=[7,3,6,101,201,301].map(id=>P.find(p=>p.id===id));return `<section class="hero2"><div class="biglogo">礦語</div><p>藉由創作，與自己深度對話</p><div class="row" style="justify-content:center"><button class="btn" onclick="go('diy')">開始 DIY 創作</button><button class="btn ghost" onclick="go('test')">測測我的能量</button></div></section><div class="entry">${[['test','能量測驗',2],['diy','DIY 創作',5],['know','知識補給',3]].map(e=>`<div class="ecard" onclick="go('${e[0]}')">${art(e[2])}<b>${e[1]}</b></div>`).join('')}</div><section class="season"><div class="row" style="justify-content:space-between"><h2>2026 冬季當季商品</h2><button class="chip" onclick="go('shop')">看全部商品</button></div><div class="srow">${se.map(p=>`<div class="sitem" onclick="detail(${p.id})">${img(p)}<b>${p.n}</b><small>${p.sc}</small></div>`).join('')}</div></section><h2 style="margin-top:26px">熱門商品</h2><div class="grid">${hot.map(card).join('')}</div>`};
+function render(){const tabs=[['home','首頁'],['shop','商品列表'],['diy','DIY 設計'],['test','測驗區'],['know','知識區'],['svc','服務區'],['soc','社群']];$('#nav').innerHTML=tabs.map(t=>`<button class="${(st.view==='preview'?'diy':st.view)===t[0]?'on':''}" onclick="go('${t[0]}')">${t[1]}</button>`).join('');$('#cc').textContent=st.cart.reduce((a,c)=>a+c.qty,0);$('#app').innerHTML=V[st.view]();if(st.view==='diy'){libDraw();diyDraw()}else if(st.view==='preview')pvDraw();}
+document.body.insertAdjacentHTML('afterbegin','<svg width="0" height="0" style="position:absolute"><filter id="wc" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="16"/><feGaussianBlur stdDeviation="1.4"/></filter></svg>');
+const SP={0:'leaf',2:'moon',3:'flower',17:'star',18:'moon',19:'sun'},DEF=['gem','leaf','wave','star','flower'],PAL=[['#8fb0e0','#f4c9c4'],['#b7a6e0','#f2d6a8'],['#9fd0c8','#f4c9c4'],['#f2c086','#a9b9e8']];
+function art(c){const m=SP[c]||DEF[c%5],[a,b]=PAL[c%4],g='#c99a4e',ln=`fill="none" stroke="${g}" stroke-width="1.6" stroke-linecap="round"`;
+let s=`<ellipse cx="100" cy="92" rx="80" ry="70" fill="${a}" opacity=".55" filter="url(#wc)"/><ellipse cx="124" cy="112" rx="56" ry="48" fill="${b}" opacity=".65" filter="url(#wc)"/>`;
+if(m==='moon')s+=`<mask id="mk"><rect width="200" height="190" fill="#fff"/><circle cx="120" cy="86" r="34" fill="#000"/></mask><circle cx="98" cy="95" r="40" fill="#fbe9c0" mask="url(#mk)" stroke="${g}"/>`;
+else if(m==='sun')s+=`<circle cx="100" cy="95" r="26" fill="#f6c26b" stroke="${g}"/>`+Array.from({length:12},(_,i)=>{const t=i*Math.PI/6;return `<line x1="${100+36*Math.cos(t)}" y1="${95+36*Math.sin(t)}" x2="${100+52*Math.cos(t)}" y2="${95+52*Math.sin(t)}" ${ln}/>`}).join('');
+else if(m==='star')s+=`<polygon points="100,50 110,81 143,81 117,100 127,132 100,113 73,132 83,100 57,81 90,81" fill="#fbe9c0" stroke="${g}" stroke-width="1.6" stroke-linejoin="round"/>`;
+else if(m==='flower')s+=Array.from({length:5},(_,i)=>`<ellipse cx="100" cy="68" rx="14" ry="26" fill="${b}" stroke="${g}" transform="rotate(${i*72} 100 95)"/>`).join('')+`<circle cx="100" cy="95" r="9" fill="#f6c26b" stroke="${g}"/>`;
+else if(m==='leaf')s+=`<path d="M100 138C58 112 62 70 100 50c38 20 42 62 0 88z" fill="#a9d3b0" stroke="${g}" stroke-width="1.6"/><path d="M100 138V62" ${ln}/>`;
+else if(m==='gem')s+=`<polygon points="68,80 100,50 132,80 100,140" fill="#e3ebf2" stroke="${g}" stroke-width="1.6" stroke-linejoin="round"/><path d="M68 80H132M100 50L86 80L100 140L114 80Z" ${ln}/>`;
+else s+=[84,104,124].map(y=>`<path d="M48 ${y}q13-15 26 0t26 0t26 0t26 0" ${ln}/>`).join('');
+s+=[[40,50],[160,62],[150,150],[52,140]].map(p=>`<path d="M${p[0]} ${p[1]-5}l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z" fill="${g}"/>`).join('');
+return `<svg viewBox="0 0 200 190" style="width:100%;display:block">${s}</svg>`}
+
+render();
+</script>
+
+</body>
+</html>
